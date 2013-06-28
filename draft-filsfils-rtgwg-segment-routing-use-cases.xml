@@ -11,7 +11,7 @@
 <?rfc compact="yes"?>
 <?rfc subcompact="no"?>
 <rfc category="std"
-     docName="draft-filsfils-rtgwg-segment-routing-use-cases-00"
+     docName="draft-filsfils-rtgwg-segment-routing-use-cases-01"
      ipr="trust200902">
   <front>
     <title abbrev="Segment Routing Use Cases">Segment Routing Use
@@ -23,13 +23,13 @@
 
       <address>
         <postal>
-          <street></street>
+          <street/>
 
           <city>Brussels</city>
 
-          <region></region>
+          <region/>
 
-          <code></code>
+          <code/>
 
           <country>BE</country>
         </postal>
@@ -82,11 +82,11 @@
 
       <address>
         <postal>
-          <street></street>
+          <street/>
 
-          <city></city>
+          <city/>
 
-          <code></code>
+          <code/>
 
           <country>FR</country>
         </postal>
@@ -100,11 +100,11 @@
 
       <address>
         <postal>
-          <street></street>
+          <street/>
 
-          <city></city>
+          <city/>
 
-          <code></code>
+          <code/>
 
           <country>FR</country>
         </postal>
@@ -140,7 +140,7 @@
 
           <city>Belgrade</city>
 
-          <code></code>
+          <code/>
 
           <country>RS</country>
         </postal>
@@ -154,11 +154,11 @@
 
       <address>
         <postal>
-          <street></street>
+          <street/>
 
           <city>London</city>
 
-          <code></code>
+          <code/>
 
           <country>UK</country>
         </postal>
@@ -243,7 +243,7 @@
       </address>
     </author>
 
-    <date day="18" month="June" year="2013" />
+    <date day="28" month="June" year="2013"/>
 
     <workgroup>Network Working Group</workgroup>
 
@@ -276,21 +276,21 @@
     <section anchor="INTRO" title="Introduction">
       <t>In this document, we document various SR use-cases.</t>
 
-      <t><xref target="IGPTUNNELS"></xref> illustrates the ability to tunnel
-      traffic towards remote service points without any other protocol than
-      the IGP.</t>
+      <t><xref target="IGPTUNNELS"/> illustrates the ability to tunnel traffic
+      towards remote service points without any other protocol than the
+      IGP.</t>
 
-      <t><xref target="FRR"></xref> reports various FRR use-cases leveraging
-      the SR functionality.</t>
+      <t><xref target="FRR"/> reports various FRR use-cases leveraging the SR
+      functionality.</t>
 
-      <t><xref target="TE"></xref> and <xref target="TEBWAC"></xref> document
+      <t><xref target="TE"/> and <xref target="TEBWAC"/> document
       traffic-engineering use-cases, respectively without and with a notion of
       bandwidth admission control.</t>
 
-      <t><xref target="SRMPLS"></xref> documents the co-existence and
-      interworking with MPLS Signaling protocols.</t>
+      <t><xref target="SRMPLS"/> documents the co-existence and interworking
+      with MPLS Signaling protocols.</t>
 
-      <t><xref target="OAM"></xref> illustrates OAM use-cases.</t>
+      <t><xref target="OAM"/> illustrates OAM use-cases.</t>
 
       <t>The objective of this document is to illustrate the properties and
       benefits of the SR architecture. To avoid any risk of partiality and
@@ -299,18 +299,17 @@
 
       <section anchor="DOCUMENTS" title="Companion Documents">
         <t>The main reference for this document is the SR architecture defined
-        in <xref target="draft-filsfils-rtgwg-segment-routing-00"></xref>.</t>
+        in <xref target="draft-filsfils-rtgwg-segment-routing-00"/>.</t>
 
         <t>IS-IS protocol extensions for Segment Routing are described in
-        <xref
-        target="draft-previdi-isis-segment-routing-extensions-00"></xref>.</t>
+        <xref target="draft-previdi-isis-segment-routing-extensions-00"/>.</t>
 
         <t>OSPF protocol extensions for Segment Routing are defined in <xref
-        target="draft-psenak-ospf-segment-routing-extensions-00"></xref>.</t>
+        target="draft-psenak-ospf-segment-routing-extensions-00"/>.</t>
 
         <t>The PCEP protocol extensions for Segment Routing are defined in
         <xref
-        target="draft-msiva-pce-pcep-segment-routing-extensions-00"></xref>.</t>
+        target="draft-msiva-pce-pcep-segment-routing-extensions-00"/>.</t>
 
         <t>In the future, we will submit the FRR section as an independent
         document.</t>
@@ -323,7 +322,7 @@
       any other protocol than ISIS or OSPF. LDP and RSVP-TE signaling
       protocols are not required.</t>
 
-      <t>Note that <xref target="SRMPLS"></xref> documents SR co-existence and
+      <t>Note that <xref target="SRMPLS"/> documents SR co-existence and
       interworking with other MPLS signaling protocols, if present in the
       network during a migration, or in case of non-homogeneous
       deployments.</t>
@@ -341,15 +340,15 @@ A---CE1---PE1         PE2---CE2---Z
               P4---P4 </artwork>
       </figure>
 
-      <t>In <xref target="IGPTUNNELSFIG"></xref> above, the four nodes A, CE1,
-      CE2 and Z are part of the same VPN. </t>
+      <t>In <xref target="IGPTUNNELSFIG"/> above, the four nodes A, CE1, CE2
+      and Z are part of the same VPN.</t>
 
       <t>PE2 advertises (in the IGP) a host address 192.0.2.2/32 with its
       attached node segment 102.</t>
 
       <t>CE2 advertises to PE2 a route to Z. PE2 binds a local label LZ to
       that route and propagates the route and its label via MPBGP to PE1 with
-      nhop 192.0.2.2 (PE2 loopback address). </t>
+      nhop 192.0.2.2 (PE2 loopback address).</t>
 
       <t>PE1 installs the VPN prefix Z in the appropriate VRF and resolves the
       next-hop onto the node segment 102. Upon receiving a packet from A
@@ -362,8 +361,8 @@ A---CE1---PE1         PE2---CE2---Z
       benefits:<list style="hanging">
           <t>Simple operation: one single intra-domain protocol to operate:
           the IGP. No need to support IGP synchronization extensions as
-          described in <xref target="RFC5443"></xref> and <xref
-          target="RFC6138"></xref>.</t>
+          described in <xref target="RFC5443"/> and <xref
+          target="RFC6138"/>.</t>
 
           <t>Excellent scaling: one Node-SID per PE.</t>
         </list></t>
@@ -375,7 +374,7 @@ A---CE1---PE1         PE2---CE2---Z
         <t>SR leverages the technologies stemming from the IPFRR framework to
         provide fast recovery of end-to-end connectivity upon failures. This
         section assumes familiarity with Remote-LFA concepts described in
-        <xref target="I-D.ietf-rtgwg-remote-lfa"></xref>.</t>
+        <xref target="I-D.ietf-rtgwg-remote-lfa"/>.</t>
 
         <t>Consider an arbitrary protected link S-E. In LFA FRR, if a path
         from a neighbor N of S towards the destination does not cause packets
@@ -388,8 +387,8 @@ A---CE1---PE1         PE2---CE2---Z
         virtual LFA by using a tunnel to carry the packet to a point in the
         network which is not a direct neighbor of S and from which the packet
         will be delivered to the destination without looping back to S. Remote
-        LFA (RLFA, <xref target="I-D.ietf-rtgwg-remote-lfa"></xref>) calls
-        such a tunnel a repair tunnel. The tail-end of this tunnel is called a
+        LFA (RLFA, <xref target="I-D.ietf-rtgwg-remote-lfa"/>) calls such a
+        tunnel a repair tunnel. The tail-end of this tunnel is called a
         "remote LFA" or a "PQ node". We refer to RLFA for the definitions of
         the P and Q sets.</t>
 
@@ -401,10 +400,10 @@ A---CE1---PE1         PE2---CE2---Z
         <t>If the P and Q sets do not intersect (i.e. there is no RLFA PQ
         node), we propose to use a Directed LFA (DLFA) repair tunnel from S to
         a Q node that is adjacent to the P space (<xref
-        target="I-D.ietf-rtgwg-remote-lfa"></xref>). The LFA repair tunnel
-        only requires two segments: a node segment to a P node which is
-        adjacent to the Q node and an adjacency segment from the P node to its
-        adjacent Q node.</t>
+        target="I-D.ietf-rtgwg-remote-lfa"/>). The LFA repair tunnel only
+        requires two segments: a node segment to a P node which is adjacent to
+        the Q node and an adjacency segment from the P node to its adjacent Q
+        node.</t>
 
         <t>Thanks to the DLFA extension, we thus have a guaranteed LFA-based
         FRR technique for any network with symmetric IGP metrics. Future
@@ -415,13 +414,12 @@ A---CE1---PE1         PE2---CE2---Z
         <t>Resolving FRR with SR has the following benefits:<list
             style="hanging">
             <t>Preservation of the simplicity properties of LFA FRR (<xref
-            target="RFC6571"></xref>).</t>
+            target="RFC6571"/>).</t>
 
             <t>Preservation of the capacity planning properties (unlike SDH
             and other FRR solutions, the repaired packet does not go back to
             the next-hop or next-next-hop but uses shortest-path forwarding
-            from a much closer release point, <xref
-            target="RFC6571"></xref>).</t>
+            from a much closer release point, <xref target="RFC6571"/>).</t>
 
             <t>Simplification of the RLFA operation: no
             dynamically-established directed LDP sessions to the repair
@@ -496,10 +494,9 @@ N--M--{    }
           <t>B advertises a MIRROR sub-TLV in its IGP Link-State Router
           Capability TLV with the values (TTT=000, MIRRORED_OBJECT=101,
           CONTEXT_SEGMENT=10002),<xref
-          target="draft-filsfils-rtgwg-segment-routing-00"></xref>, <xref
-          target="draft-previdi-isis-segment-routing-extensions-00"></xref>
-          and <xref
-          target="draft-psenak-ospf-segment-routing-extensions-00"></xref> for
+          target="draft-filsfils-rtgwg-segment-routing-00"/>, <xref
+          target="draft-previdi-isis-segment-routing-extensions-00"/> and
+          <xref target="draft-psenak-ospf-segment-routing-extensions-00"/> for
           more details in the encodings.</t>
 
           <t>Doing so, B advertises within the routing domain that it is
@@ -550,7 +547,7 @@ N--M--{    }
 
           <t>The RIB deletion of 192.0.2.1/32 at N is beneficial as it
           triggers the BGP FRR Protection onto the precomputed backup next-hop
-          <xref target="draft-rtgwg-bgp-pic-01.txt"></xref>.</t>
+          <xref target="draft-rtgwg-bgp-pic-01.txt"/>.</t>
 
           <t>The RIB deletion at node M, if it occurs before the RIB deletion
           at N, would be disastrous as it would lead to the loss of the
@@ -631,14 +628,14 @@ N--M--{    }
 
       <section anchor="ANYCASTNODE" title="Anycast Node Segment">
         <t>The SR architecture defines an anycast segment as a segment
-        attached to an anycast IP prefix (<xref target="RFC4786"></xref>).</t>
+        attached to an anycast IP prefix (<xref target="RFC4786"/>).</t>
 
         <t>The anycast node segment is an interesting tool for traffic
         engineering:<list style="hanging">
             <t>Macro-policy support: anycast segments allow to express
             policies such as &ldquo;go via plane1 of a dual-plane
-            network&rdquo; (<xref target="DISJOINT"></xref>) or &ldquo;go via
-            Region3&rdquo; (<xref target="EGRESSPEER"></xref>).</t>
+            network&rdquo; (<xref target="DISJOINT"/>) or &ldquo;go via
+            Region3&rdquo; (<xref target="EGRESSPEER"/>).</t>
 
             <t>Implicit node resiliency: the traffic-engineering policy is not
             anchored to a specific node whose failure could impact the
@@ -884,10 +881,10 @@ A-----B-------C-----Z
 
         <t>The same use-case can be derived from any other C-SPF objective or
         constraint (TE affinity, TE latency, SRLG, etc.) as defined in <xref
-        target="RFC5305"></xref> and <xref
-        target="I-D.previdi-isis-te-metric-extensions"></xref>. Note that the
+        target="RFC5305"/> and <xref
+        target="I-D.previdi-isis-te-metric-extensions"/>. Note that the
         bandwidth case is specific and hence is treated in <xref
-        target="TEBWAC"></xref>.</t>
+        target="TEBWAC"/>.</t>
       </section>
 
       <section anchor="EGRESSPEER" title="Egress Peering Traffic Engineering">
@@ -935,8 +932,8 @@ B   AS1   | \    |      |/ +------+
             it.</t>
 
             <t>C to bind an external adjacency segment (<xref
-            target="draft-filsfils-rtgwg-segment-routing-00"></xref>) to each
-            of its peering interface.</t>
+            target="draft-filsfils-rtgwg-segment-routing-00"/>) to each of its
+            peering interface.</t>
           </list></t>
 
         <t>For the sake of this illustration, let us assume that the external
@@ -944,8 +941,7 @@ B   AS1   | \    |      |/ +------+
         and (E, AS3) are respectively 9001 and 9002.</t>
 
         <t>These external adjacencies (and their attached segments) are
-        flooded within the IGP domain of AS1 <xref
-        target="RFC5316"></xref>.</t>
+        flooded within the IGP domain of AS1 <xref target="RFC5316"/>.</t>
 
         <t>As a result, the following information is available within
         AS1:<figure>
@@ -1113,7 +1109,7 @@ PE1---A---B-----F-----E---PE2</artwork>
 
       <t>The third sub-section introduces a future research topic involving
       the notion of residual bandwidth introduced in <xref
-      target="I-D.atlas-mpls-te-express-path"></xref>.</t>
+      target="I-D.atlas-mpls-te-express-path"/>.</t>
 
       <section anchor="CAPPLAN" title="Capacity Planning Process">
         <t>Capacity Planning anticipates the routing of the traffic matrix
@@ -1180,8 +1176,7 @@ A   E     \
         network.</t>
 
         <t>Segment Routing offers a simple support for explicit path policy.
-        Let us provide two examples based on <xref
-        target="ECMPFIG"></xref>.</t>
+        Let us provide two examples based on <xref target="ECMPFIG"/>.</t>
 
         <t>First example: let us assume that the process has selected the flow
         AM for traffic-engineering away from its ECMP-enabled shortest path
@@ -1223,7 +1218,7 @@ A   E     \
 
             <t>The explicitly-engineered traffic (which is a minority) still
             benefits from the ECMP-awareness of the node segments within their
-            segment list. </t>
+            segment list.</t>
 
             <t>Only the head-end of a traffic-engineering policy maintains
             state. The midpoints and tail-ends do not maintain any state.</t>
@@ -1233,7 +1228,7 @@ A   E     \
       <section anchor="SDN" title="SDN /SR use-case">
         <t>The heart of the application of SR to the SDN use-case lies in the
         SDN controller, also called Stateful PCE (<xref
-        target="I-D.ietf-pce-stateful-pce"></xref>).</t>
+        target="I-D.ietf-pce-stateful-pce"/>).</t>
 
         <t>The SDN controller is responsible to control the evolution of the
         traffic matrix and topology. It accepts or denies the addition of new
@@ -1247,15 +1242,15 @@ A   E     \
 
         <t>The means of collecting traffic and topology information are the
         same as what would be used with other SDN-based traffic-engineering
-        solutions (e.g. <xref target="RFC5101"></xref> and <xref
-        target="I-D.ietf-idr-ls-distribution"></xref>.</t>
+        solutions (e.g. <xref target="RFC5101"/> and <xref
+        target="I-D.ietf-idr-ls-distribution"/>.</t>
 
         <t>The means of instantiating policy information at a
         traffic-engineering head-end are the same as what would be used with
         other SDN-based traffic-engineering solutions (e.g.: <xref
-        target="I-D.ward-i2rs-framework"></xref>, <xref
-        target="I-D.crabbe-pce-pce-initiated-lsp"></xref> and <xref
-        target="draft-msiva-pce-pcep-segment-routing-extensions-00"></xref>).</t>
+        target="I-D.ward-i2rs-framework"/>, <xref
+        target="I-D.crabbe-pce-pce-initiated-lsp"/> and <xref
+        target="draft-msiva-pce-pcep-segment-routing-extensions-00"/>).</t>
 
         <section anchor="SDNILLUSTRATION" title="Illustration">
           <figure align="center" alt="SDNUSECASEFIG" title="SDN/SR use-case">
@@ -1329,7 +1324,7 @@ A===B--G--D==F--Y
           policy at A: &ldquo;map any packet of the classified flow FZ onto
           segment-list {107, 203}". The SDN Controller uses PCEP extensions to
           instantiate that policy at A (<xref
-          target="draft-msiva-pce-pcep-segment-routing-extensions-00"></xref>).</t>
+          target="draft-msiva-pce-pcep-segment-routing-extensions-00"/>).</t>
 
           <t>As soon as A receives the PCEP message, it enforces the policy
           and the traffic classified as FZ is immediately mapped onto segment
@@ -1357,7 +1352,7 @@ A===B--G--D==F--Y
               maintained at mid-points and tail-ends.</t>
 
               <t>Automated guaranteed FRR for any topology (<xref
-              target="FRR"></xref>.</t>
+              target="FRR"/>.</t>
 
               <t>Optimum virtualization: the policy state is in the packet
               header and not in the intermediate node along the policy. The
@@ -1434,7 +1429,7 @@ A===B--G--D==F--Y
 
       <section anchor="RESIDUALBW" title="Residual Bandwidth">
         <t>The notion of Residual Bandwidth (RBW) is introduced by <xref
-        target="I-D.atlas-mpls-te-express-path"></xref>.</t>
+        target="I-D.atlas-mpls-te-express-path"/>.</t>
 
         <t>A future version of this document will describe the SR/RBW research
         opportunity.</t>
@@ -1736,7 +1731,7 @@ PE1----P5--P6--P7--P8---PE3</artwork>
         deployment can be limited to the network region where the SR benefits
         are most desired.</t>
 
-        <t>In <xref target="SRBENEFITFIG"></xref>, let us assume:<list
+        <t>In <xref target="SRBENEFITFIG"/>, let us assume:<list
             style="hanging">
             <t>All link costs are 10 except FG which is 30.</t>
 
@@ -1921,12 +1916,12 @@ Y--A---B---E--Z
      AS1            AS2</artwork>
         </figure>
 
-        <t>In Inter-AS Option C <xref target="RFC4364"></xref>, B2 advertises
-        to B1 a BGP3107 route for PE2 and B1 reflects it to its internal
-        peers, such as PE1. PE1 learns from a service route reflector a
-        service route whose nhop is PE2. PE1 resolves that service route on
-        the BGP3107 route to PE2. That BGP3107 route to PE2 is itself resolved
-        on the AS1 IGP route to B1.</t>
+        <t>In Inter-AS Option C <xref target="RFC4364"/>, B2 advertises to B1
+        a BGP3107 route for PE2 and B1 reflects it to its internal peers, such
+        as PE1. PE1 learns from a service route reflector a service route
+        whose nhop is PE2. PE1 resolves that service route on the BGP3107
+        route to PE2. That BGP3107 route to PE2 is itself resolved on the AS1
+        IGP route to B1.</t>
 
         <t>If AS1 operates SR, then the tunnel from PE1 to B1 is provided by
         the node segment from PE1 to B1.</t>
@@ -1937,8 +1932,7 @@ Y--A---B---E--Z
         label allocated by PE2.</t>
 
         <t>The same straightforward SR applicability is derived for CsC and
-        Seamless MPLS (<xref
-        target="I-D.ietf-mpls-seamless-mpls"></xref>).</t>
+        Seamless MPLS (<xref target="I-D.ietf-mpls-seamless-mpls"/>).</t>
       </section>
     </section>
 
@@ -1974,15 +1968,15 @@ Y--A---B---E--Z
       </section>
 
       <section anchor="OAMREMOTEPEER" title="Monitoring a remote peering link">
-        <t>In <xref target="EGRESSTEFIG"></xref>, node A can monitor the
-        dataplane liveness of the unidirectional peering link from C to D of
-        AS2 by sending an IP probe with destination address A and segment list
-        {101, 9001}. Node-SID 101 steers the probe to C and External Adj-SID
-        9001 steers the probe from C over the desired peering link to D of
-        AS2. The SR header is removed by C and D receives a plain IP packet
-        with destination address A. D returns the probe to A through classic
-        IP forwarding. BFD Echo mode (<xref target="RFC5880"></xref>) would
-        support such liveliness unidirectional link probing application.</t>
+        <t>In <xref target="EGRESSTEFIG"/>, node A can monitor the dataplane
+        liveness of the unidirectional peering link from C to D of AS2 by
+        sending an IP probe with destination address A and segment list {101,
+        9001}. Node-SID 101 steers the probe to C and External Adj-SID 9001
+        steers the probe from C over the desired peering link to D of AS2. The
+        SR header is removed by C and D receives a plain IP packet with
+        destination address A. D returns the probe to A through classic IP
+        forwarding. BFD Echo mode (<xref target="RFC5880"/>) would support
+        such liveliness unidirectional link probing application.</t>
       </section>
     </section>
 
@@ -2036,11 +2030,11 @@ Y--A---B---E--Z
           <title>Segment Routing Architecture</title>
 
           <author fullname="Clarence Filsfils" initials="C."
-                  surname="Filsfils"></author>
+                  surname="Filsfils"/>
 
-          <author fullname="Stefano Previdi" initials="S." surname="Previdi"></author>
+          <author fullname="Stefano Previdi" initials="S." surname="Previdi"/>
 
-          <date day="03" month="June" year="2013" />
+          <date day="03" month="June" year="2013"/>
         </front>
       </reference>
 
@@ -2048,14 +2042,14 @@ Y--A---B---E--Z
         <front>
           <title>IS-IS Segment Routing Extensions</title>
 
-          <author fullname="Stefano Previdi" initials="S." surname="Previdi"></author>
+          <author fullname="Stefano Previdi" initials="S." surname="Previdi"/>
 
           <author fullname="Clarence Filsfils" initials="C."
-                  surname="Filsfils"></author>
+                  surname="Filsfils"/>
 
-          <author fullname="Ahmed Bashandy" initials="A." surname="Bashandy"></author>
+          <author fullname="Ahmed Bashandy" initials="A." surname="Bashandy"/>
 
-          <date day="20" month="May" year="2013" />
+          <date day="20" month="May" year="2013"/>
         </front>
       </reference>
 
@@ -2063,11 +2057,11 @@ Y--A---B---E--Z
         <front>
           <title>OSPF Segment Routing Extensions</title>
 
-          <author fullname="Peter Psenak" initials="P." surname="Psenak"></author>
+          <author fullname="Peter Psenak" initials="P." surname="Psenak"/>
 
-          <author fullname="Stefano Previdi" initials="S." surname="Previdi"></author>
+          <author fullname="Stefano Previdi" initials="S." surname="Previdi"/>
 
-          <date day="20" month="May" year="2013" />
+          <date day="20" month="May" year="2013"/>
         </front>
       </reference>
 
@@ -2076,11 +2070,11 @@ Y--A---B---E--Z
           <title>PCEP Extensions for Segment Routing</title>
 
           <author fullname="Clarence Filsfils" initials="C."
-                  surname="Filsfils"></author>
+                  surname="Filsfils"/>
 
-          <author fullname="Siva Sivabalan" initials="S." surname="Sivabalan"></author>
+          <author fullname="Siva Sivabalan" initials="S." surname="Sivabalan"/>
 
-          <date day="20" month="May" year="2013" />
+          <date day="20" month="May" year="2013"/>
         </front>
       </reference>
 
@@ -2089,14 +2083,14 @@ Y--A---B---E--Z
           <title>BGP Prefix Independent Convergence</title>
 
           <author fullname="Clarence Filsfils" initials="C."
-                  surname="Filsfils"></author>
+                  surname="Filsfils"/>
 
-          <author fullname="Ahmed Bashandy" initials="A." surname="Bashandy"></author>
+          <author fullname="Ahmed Bashandy" initials="A." surname="Bashandy"/>
 
           <author fullname="Prodosh Mohapatra" initials="P."
-                  surname="Mohapatra"></author>
+                  surname="Mohapatra"/>
 
-          <date day="29" month="March" year="2013" />
+          <date day="29" month="March" year="2013"/>
         </front>
       </reference>
 
