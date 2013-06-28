@@ -38,8 +38,28 @@
       </address>
     </author>
 
-    <author fullname="Stefano Previdi" initials="S." role="editor"
-            surname="Previdi">
+    <author fullname="Pierre Francois" initials="P." role="editor"
+            surname="Francois">
+      <organization>Cisco Systems, Inc.</organization>
+
+      <address>
+        <postal>
+          <street/>
+
+          <city/>
+
+          <region/>
+
+          <code/>
+
+          <country/>
+        </postal>
+
+        <email>pifranco@cisco.com</email>
+      </address>
+    </author>
+
+    <author fullname="Stefano Previdi" initials="S." surname="Previdi">
       <organization>Cisco Systems, Inc.</organization>
 
       <address>
@@ -54,26 +74,6 @@
         </postal>
 
         <email>sprevidi@cisco.com</email>
-      </address>
-    </author>
-
-    <author fullname="Ahmed Bashandy" initials="A." surname="Bashandy">
-      <organization>Cisco Systems, Inc.</organization>
-
-      <address>
-        <postal>
-          <street>170, West Tasman Drive</street>
-
-          <city>San Jose</city>
-
-          <region>CA</region>
-
-          <code>95134</code>
-
-          <country>US</country>
-        </postal>
-
-        <email>bashandy@cisco.com</email>
       </address>
     </author>
 
