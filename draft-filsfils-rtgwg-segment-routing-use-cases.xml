@@ -40,19 +40,19 @@
 
     <author fullname="Pierre Francois" initials="P." role="editor"
             surname="Francois">
-      <organization>Cisco Systems, Inc.</organization>
+      <organization>IMDEA Networks</organization>
 
       <address>
         <postal>
           <street/>
 
-          <city/>
+          <city>Leganes</city>
 
           <region/>
 
           <code/>
 
-          <country/>
+          <country>ES</country>
         </postal>
 
         <email>pifranco@cisco.com</email>
@@ -243,19 +243,17 @@
       </address>
     </author>
 
-    <date day="28" month="June" year="2013"/>
+    <date day="08" month="July" year="2013"/>
 
     <workgroup>Network Working Group</workgroup>
 
-    <abstract>
-      <t>Segment Routing (SR) leverages the source routing and tunneling
-      paradigms. A node steers a packet through a controlled set of
-      instructions, called segments, by prepending the packet with an SR
-      header. A segment can represent any instruction, topological or
-      service-based. A segment can have a local semantic to an SR node or
-      global within an SR domain. SR allows to enforce a flow through any
-      topological path and service chain while maintaining per-flow state only
-      at the ingress node to the SR domain.</t>
+    <abstract> <t>Segment Routing (SR) leverages the source routing and
+    tunneling paradigms. A node steers a packet through a controlled set of
+    instructions, called segments, by prepending the packet with an SR header.
+    A segment can represent any instruction, topological or service-based. SR
+    allows to enforce a flow through any topological path and service chain
+    while maintaining per-flow state only at the ingress node to the SR
+        domain.</t>
 
       <t>The Segment Routing architecture can be directly applied to the MPLS
       dataplane with no change on the forwarding plane. It requires minor
@@ -293,13 +291,14 @@
       <t><xref target="OAM"/> illustrates OAM use-cases.</t>
 
       <t>The objective of this document is to illustrate the properties and
-      benefits of the SR architecture. To avoid any risk of partiality and
-      lengthy debate, we do not include any comparison with other
-      architectures.</t>
+      benefits of the SR architecture. </t>
 
       <section anchor="DOCUMENTS" title="Companion Documents">
         <t>The main reference for this document is the SR architecture defined
         in <xref target="draft-filsfils-rtgwg-segment-routing-00"/>.</t>
+
+        <t>The SR instantiation in the MPLS dataplane is described in <xref
+        target="I-D.gredler-isis-label-advertisement"/>.</t>
 
         <t>IS-IS protocol extensions for Segment Routing are described in
         <xref target="draft-previdi-isis-segment-routing-extensions-00"/>.</t>
@@ -307,13 +306,51 @@
         <t>OSPF protocol extensions for Segment Routing are defined in <xref
         target="draft-psenak-ospf-segment-routing-extensions-00"/>.</t>
 
+        <t>Fast-Reroute for Segment Routing is described in <xref target="I-D.francois-sr-frr"/>.</t>
+
         <t>The PCEP protocol extensions for Segment Routing are defined in
         <xref
         target="draft-msiva-pce-pcep-segment-routing-extensions-00"/>.</t>
 
-        <t>In the future, we will submit the FRR section as an independent
-        document.</t>
+        <t>The SR instantiation in the IPv6 dataplane will be described in a
+        future draft.</t>
+
       </section>
+
+       <section title="Editorial simplification" anchor="sec.editorial_simplification">
+
+        <t>A unique index is allocated to each IGP Prefix Segment. The related absolute
+        segment associated to an IGP Prefix SID is determined by summing the index and
+        the base of the SRSB. In the SR architecture, each node can be configured with
+        a different SRSB and hence the absolute SID associated to an IGP Prefix Segment
+        can change from node to node.</t>
+
+        <t>We have described the first use-case of this document in the most generic
+        way, i.e. with different SRSB at each node in the SR IGP domain. We have
+        detailed the packet path highlighting that the SID of a Prefix Segment may
+        change hop by hop.</t>
+
+        <t>For editorial simplification purpose, we will assume for all the other use
+        cases that the operator ensures a single consistent SRSB across all the nodes
+        in the SR IGP domain. In this specific context, we call the SRSB the SRGB and
+        we use global absolute SID's for the IGP Prefix SID's. Indeed, when all the
+        nodes have the same SRSB, all the nodes associate the same absolute SID with
+        the same index and hence one can use the absolute SID value instead of the
+        index.</t>
+
+        <t>Several operators have indicated that they would deploy the SR technology in
+        this way: with a single consistent SRGB across all the nodes. They motivated
+        their choice based on operational simplicity (e.g. troubleshooting across
+        different nodes).</t>
+
+        <t>While this document notes this operator feedback and we use this deployment
+        model to simplify the text, we highlight that the SR architecture is not
+        limited to this specific deployment use-case. Shared segments are always
+        advertised in the IGP extensions as indexed values.</t>
+
+
+       </section>
+
     </section>
 
     <section anchor="IGPTUNNELS" title="IGP-based MPLS Tunneling ">
@@ -341,30 +378,58 @@ A---CE1---PE1         PE2---CE2---Z
       </figure>
 
       <t>In <xref target="IGPTUNNELSFIG"/> above, the four nodes A, CE1, CE2
-      and Z are part of the same VPN.</t>
+      and Z are part of the same VPN. CE2 advertises to PE2 a route to Z. PE2
+      binds a local label LZ to that route and propagates the route and its
+      label via MPBGP to PE1 with nhop 192.168.0.2. PE1 installs the VPN prefix
+      Z in the appropriate VRF and resolves the next-hop onto the node segment
+      102. Upon receiving a packet from A destined to Z, PE1 pushes two labels
+      onto the packet: the top label is the Prefix SID attached to
+      192.168.0.2/32, the bottom label is the VPN label LZ attached to the VPN
+      route Z.</t>
+      
+    <t>The Prefix-SID attached to prefix 192.168.0.2 is a shared segment within
+    the IGP domain, as such it is indexed.</t>
+    
+    <t>Let us assume that:<list style="hanging"> 
+<t>-   the operator allocated the index 2 to the prefix 192.168.0.2/32</t>
+<t>-   the operator allocated SRSB [100, 199] at PE1</t>
+<t>-   the operator allocated SRSB [200, 299] at P1</t>
+<t>-   the operator allocated SRSB [300, 399] at P2</t>
+<t>-   the operator allocated SRSB [400, 499] at P3</t>
+<t>-   the operator allocated SRSB [500, 599] at P4</t>
+<t>-   the operator allocated SRSB [600, 699] at PE2</t>
+    </list></t>
 
-      <t>PE2 advertises (in the IGP) a host address 192.0.2.2/32 with its
-      attached node segment 102.</t>
+    <t>Thanks to this context, any SR-capable IGP node in the domain can
+    determine what is the segment associated with the Prefix-SID attached to
+    prefix 192.168.0.2/32:<list style="hanging">
+<t>-   PE1's SID is 100+2=102</t>
+<t>-   P1's  SID is 200+2=202</t>
+<t>-   P2's  SID is 300+2=302</t>
+<t>-   P3's  SID is 400+2=402</t>
+<t>-   P4's  SID is 500+2=502</t>
+<t>-   PE2's SID is 600+2=602</t>
+   </list></t> 
 
-      <t>CE2 advertises to PE2 a route to Z. PE2 binds a local label LZ to
-      that route and propagates the route and its label via MPBGP to PE1 with
-      nhop 192.0.2.2 (PE2 loopback address).</t>
+  <t>  Specifically to our example this means that PE1 load-balance the traffic
+  to VPN route Z between P1 and P4. The packets sent to P1 have a top label 202
+  while the packets sent to P4 have a top label 502. P1 swaps 202 for 302 and
+  forwards to P2. P2 pops 302 and forwards to PE2. The packets sent to P4
+  had label 502. P4 swaps 502 for 402 and forwards the packets to P3. P3
+  pops the top label and forwards the packets to PE2. Eventually all the
+  packets reached PE2 with one single lable: LZ, the VPN label attached to
+  VPN route Z.</t>
+          
 
-      <t>PE1 installs the VPN prefix Z in the appropriate VRF and resolves the
-      next-hop onto the node segment 102. Upon receiving a packet from A
-      destined to Z, PE1 pushes two labels onto the packet: the top label is
-      102, the bottom label is LZ. 102 identifies the node segment to PE2 and
-      hence transports the packet along the ECMP-aware shortest-path to PE2.
-      PE2 then processes the VPN label LZ and forwards the packet to CE2.</t>
-
-      <t>Supporting MPLS services (VPN, VPLS, VPWS) with SR has the following
+     
+      <t>This scenario illustrates how supporting MPLS services (VPN, VPLS, VPWS) with SR has the following
       benefits:<list style="hanging">
-          <t>Simple operation: one single intra-domain protocol to operate:
+          <t>-  Simple operation: one single intra-domain protocol to operate:
           the IGP. No need to support IGP synchronization extensions as
           described in <xref target="RFC5443"/> and <xref
           target="RFC6138"/>.</t>
 
-          <t>Excellent scaling: one Node-SID per PE.</t>
+          <t>-  Excellent scaling: one Node-SID per PE.</t>
         </list></t>
     </section>
 
@@ -1993,9 +2058,11 @@ Y--A---B---E--Z
     </section>
 
     <section anchor="Acknowledgements" title="Acknowledgements">
-      <t>We would like to thank Dave Ward, Dan Frost, Stewart Bryant, Pierre
-      Francois, Thomas Telkamp, Ruediger Geib and Les Ginsberg for their
-      contribution to the content of this document.</t>
+    
+      <t>We would like to thank Dave Ward, Dan Frost, Stewart Bryant, Thomas
+      Telkamp, Ruediger Geib and Les Ginsberg for their contribution to the
+      content of this document.</t>
+
     </section>
   </middle>
 
@@ -2094,11 +2161,16 @@ Y--A---B---E--Z
         </front>
       </reference>
 
+
       <?rfc include="http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-ietf-rtgwg-remote-lfa-02.xml"?>
 
       <?rfc include="http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-ietf-mpls-seamless-mpls-03.xml"?>
 
+      <?rfc include="http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-gredler-isis-label-advertisement-03.xml"?>
+
       <?rfc include="http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-previdi-isis-te-metric-extensions-03.xml"?>
+
+      <?rfc include="http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-francois-sr-frr-00.xml"?>
 
       <?rfc include="http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-atlas-mpls-te-express-path-02.xml"?>
 
