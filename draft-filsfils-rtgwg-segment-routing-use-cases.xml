@@ -359,10 +359,12 @@
       any other protocol than ISIS or OSPF. LDP and RSVP-TE signaling
       protocols are not required.</t>
 
+<!--
       <t>Note that <xref target="SRMPLS"/> documents SR co-existence and
       interworking with other MPLS signaling protocols, if present in the
       network during a migration, or in case of non-homogeneous
       deployments.</t>
+-->
 
       <t>The operator only needs to allocate one node segment per PE and the
       SR IGP control-plane automatically builds the required MPLS forwarding
@@ -382,7 +384,7 @@ A---CE1---PE1         PE2---CE2---Z
       binds a local label LZ to that route and propagates the route and its
       label via MPBGP to PE1 with nhop 192.168.0.2. PE1 installs the VPN prefix
       Z in the appropriate VRF and resolves the next-hop onto the node segment
-      102. Upon receiving a packet from A destined to Z, PE1 pushes two labels
+      associated with PE2. Upon receiving a packet from A destined to Z, PE1 pushes two labels
       onto the packet: the top label is the Prefix SID attached to
       192.168.0.2/32, the bottom label is the VPN label LZ attached to the VPN
       route Z.</t>
@@ -1138,7 +1140,7 @@ PE1---A---B-----F-----E---PE2</artwork>
 
         <t>With this context in mind, the operator achieves its objective by
         configuring the following traffic-engineering policy at PE1 for the
-        PE2-destined traffic: {102, 9001, 202}: <list style="hanging">
+        PE2-destined traffic: {102, 9003, 202}: <list style="hanging">
             <t>Node-SID 102 steers the traffic to B.</t>
 
             <t>Adj-SID 9003 load-balances the traffic to C or F.</t>

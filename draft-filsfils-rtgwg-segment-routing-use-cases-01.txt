@@ -322,13 +322,13 @@ Internet-Draft          Segment Routing Use Cases              July 2013
    without any other protocol than ISIS or OSPF.  LDP and RSVP-TE
    signaling protocols are not required.
 
-   Note that Section 6 documents SR co-existence and interworking with
-   other MPLS signaling protocols, if present in the network during a
-   migration, or in case of non-homogeneous deployments.
-
    The operator only needs to allocate one node segment per PE and the
    SR IGP control-plane automatically builds the required MPLS
    forwarding constructs from any PE to any PE.
+
+
+
+
 
 
 
@@ -350,10 +350,10 @@ Internet-Draft          Segment Routing Use Cases              July 2013
    label LZ to that route and propagates the route and its label via
    MPBGP to PE1 with nhop 192.168.0.2.  PE1 installs the VPN prefix Z in
    the appropriate VRF and resolves the next-hop onto the node segment
-   102.  Upon receiving a packet from A destined to Z, PE1 pushes two
-   labels onto the packet: the top label is the Prefix SID attached to
-   192.168.0.2/32, the bottom label is the VPN label LZ attached to the
-   VPN route Z.
+   associated with PE2.  Upon receiving a packet from A destined to Z,
+   PE1 pushes two labels onto the packet: the top label is the Prefix
+   SID attached to 192.168.0.2/32, the bottom label is the VPN label LZ
+   attached to the VPN route Z.
 
    The Prefix-SID attached to prefix 192.168.0.2 is a shared segment
    within the IGP domain, as such it is indexed.
@@ -1241,7 +1241,7 @@ Internet-Draft          Segment Routing Use Cases              July 2013
 
    With this context in mind, the operator achieves its objective by
    configuring the following traffic-engineering policy at PE1 for the
-   PE2-destined traffic: {102, 9001, 202}:
+   PE2-destined traffic: {102, 9003, 202}:
 
       Node-SID 102 steers the traffic to B.
 
